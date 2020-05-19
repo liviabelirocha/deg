@@ -12,15 +12,22 @@ function love.load()
     })
 
     gStateMachine = StateMachine {
-        
+        ['start'] = function() return StartState end,
     }
-    gStateMachine:change('')
+    gStateMachine:change('start')
 
     love.keyboard.keysPressed = {}
 end
 
 function love.keypressed(key)
     love.keyboard.keysPressed[key] = true
+end
+
+function love.keyboard.wasPressed(key)
+    if love.keyboard.keysPressed[key] then
+        return true
+    end
+    return false
 end
 
 function love.update(dt)

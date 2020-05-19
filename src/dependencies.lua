@@ -11,3 +11,4 @@ require 'src/utils/StateMachine'
 
 --states
 require 'src/states/BaseState'
+require 'src/states/game/StartState'
