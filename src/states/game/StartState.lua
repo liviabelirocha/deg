@@ -24,26 +24,31 @@ function StartState:update()
 end
 
 function StartState:render()
+    love.graphics.setFont(gFonts['medium'])
     love.graphics.printf("As Aventuras de Deg Dereg Johnson", 0, 16, VIRTUAL_WIDTH, 'center')
 
+    love.graphics.setFont(gFonts['small'])
     if highlighted == 1 then
         love.graphics.setColor(103/255, 1, 1, 1)
     end
-    love.graphics.printf("Novo jogo", 0, 48, VIRTUAL_WIDTH - 16, 'right')
+    love.graphics.printf("Novo jogo", 0, VIRTUAL_HEIGHT - 64, VIRTUAL_WIDTH, 'center')
     love.graphics.setColor(1, 1, 1, 1)
+
     if highlighted == 2 then
         love.graphics.setColor(103/255, 1, 1, 1)
     end
-    love.graphics.printf("Continuar", 0, 64, VIRTUAL_WIDTH - 16, 'right')
+    love.graphics.printf("Continuar", 0, VIRTUAL_HEIGHT - 48, VIRTUAL_WIDTH, 'center')
     love.graphics.setColor(1, 1, 1, 1)
+
     if highlighted == 3 then
         love.graphics.setColor(103/255, 1, 1, 1)
     end
-    love.graphics.printf("Configurações", 0, 80, VIRTUAL_WIDTH - 16, 'right')
+    love.graphics.printf("Configuracoes", 0, VIRTUAL_HEIGHT - 32, VIRTUAL_WIDTH, 'center')
     love.graphics.setColor(1, 1, 1, 1)
+    
     if highlighted == 4 then
         love.graphics.setColor(103/255, 1, 1, 1)
     end
-    love.graphics.printf("Sair", 0, 96, VIRTUAL_WIDTH - 16, 'right')
+    love.graphics.printf("Sair", 0, VIRTUAL_HEIGHT - 16, VIRTUAL_WIDTH, 'center')
     love.graphics.setColor(1, 1, 1, 1)
 end
