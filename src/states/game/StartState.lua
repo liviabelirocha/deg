@@ -17,7 +17,11 @@ function StartState:update()
     end
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        if highlighted == 4 then
+        if highlighted == 1 then
+            gStateMachine:change('play', {
+                level = 1
+            })
+        elseif highlighted == 4 then
             love.event.quit()
         end
     end
