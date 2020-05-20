@@ -31,5 +31,5 @@ gFrames = {
 }
 
 gLevels = {
-    [1] = loadTileMap('assets/maps/test')
+    [1] = loadTileMap('assets/maps/test', gTextures['tiles'], gFrames['tiles'])
 }

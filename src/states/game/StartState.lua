@@ -2,7 +2,7 @@ StartState = Class{__includes = BaseState}
 
 local highlighted = 1
 
-function StartState:update()
+function StartState:update(dt)
     if love.keyboard.wasPressed('up') then
         highlighted = highlighted - 1
         if highlighted == 0 then

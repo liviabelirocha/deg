@@ -1,4 +1,4 @@
-function loadTileMap(path)
+function loadTileMap(path, texture, quads)
     local map = require(path)
 
     local tileset = map.tilesets[1]
@@ -13,12 +13,12 @@ function loadTileMap(path)
                     local tileId = layer.data[index]
 
                     if tileId ~= 0 then
-                        local quad = gFrames['tiles'][tileId]
+                        local quad = quads[tileId]
 
                         local xx = x * self.tileset.tilewidth
                         local yy = y * self.tileset.tileheight
                         
-                        love.graphics.draw(gTextures['tiles'], quad, xx, yy)
+                        love.graphics.draw(texture, quad, xx, yy)
                     end
                 end
             end
