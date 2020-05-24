@@ -1,1 +1,0 @@
-"C:\Arquivos de Programas\LOVE\lovec.exe" .
