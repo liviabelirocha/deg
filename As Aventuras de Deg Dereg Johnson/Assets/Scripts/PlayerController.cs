@@ -47,8 +47,9 @@ public class PlayerController : MonoBehaviour
         {
             if (state == StateMachine.falling)
             {
-                Destroy(other.gameObject);
-                Jump(30f);
+                EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
+                enemy.Trigger();
+                Jump(40f);
                 addPoints(200);
             }
             else
@@ -79,10 +80,7 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector2(scale, 1);
         }
 
-        if (Input.GetButtonDown("Jump") && collider.IsTouchingLayers(ground)) //jumping
-        {
-            Jump();
-        }
+        if (Input.GetButtonDown("Jump") && collider.IsTouchingLayers(ground)) Jump();
     }
 
     private void Jump(float force = jumpForce)

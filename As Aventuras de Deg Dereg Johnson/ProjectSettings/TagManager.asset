@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collectable
   - Enemy
+  - Waypoint
   layers:
   - Default
   - TransparentFX
