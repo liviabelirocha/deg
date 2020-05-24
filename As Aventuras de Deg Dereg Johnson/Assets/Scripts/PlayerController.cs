@@ -15,9 +15,13 @@ public class PlayerController : MonoBehaviour
 
     //inspector variables
     [SerializeField] private float speed = 10f;
-    [SerializeField] private float jumpForce = 30f;
     [SerializeField] private int points = 0;
+    [SerializeField] private int health = 9;
     [SerializeField] private Text pointsText;
+    [SerializeField] private Text healthText;
+
+    //variables
+    private const float jumpForce = 50f;
 
     //state machine
     private enum StateMachine { idle, running, jumping, falling };
@@ -37,13 +41,29 @@ public class PlayerController : MonoBehaviour
         animator.SetInteger("state", (int)state);
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            if (state == StateMachine.falling)
+            {
+                Destroy(other.gameObject);
+                Jump(30f);
+                addPoints(200);
+            }
+            else
+            {
+                health -= 1;
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Collectable")
+        if (collision.gameObject.tag == "Collectable")
         {
             Destroy(collision.gameObject);
-            points += 100;
-            pointsText.text = points.ToString();
+            addPoints(100);
         }
     }
 
@@ -61,14 +81,26 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && collider.IsTouchingLayers(ground)) //jumping
         {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
-            state = StateMachine.jumping;
+            Jump();
         }
+    }
+
+    private void Jump(float force = jumpForce)
+    {
+        rigidBody.velocity = new Vector2(rigidBody.velocity.x, force);
+        state = StateMachine.jumping;
+    }
+
+    private void addPoints(int addedPoints)
+    {
+        points += addedPoints;
+        pointsText.text = points.ToString();
     }
 
     private void ChangeState()
     {
-        if (state == StateMachine.jumping)
+        if (state == StateMachine.jumping ||
+           ((state == StateMachine.running) && !collider.IsTouchingLayers(ground)))
         {
             if (rigidBody.velocity.y < .1f) state = StateMachine.falling;
         }
@@ -78,6 +110,5 @@ public class PlayerController : MonoBehaviour
         }
         else if (Mathf.Abs(rigidBody.velocity.x) > Mathf.Epsilon) state = StateMachine.running;
         else state = StateMachine.idle;
-
     }
 }
