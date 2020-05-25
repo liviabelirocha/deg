@@ -43,6 +43,8 @@ public class EnemyController : MonoBehaviour
     {
         state = StateMachine.dying;
         speed = 0;
+        rigidBody.bodyType = RigidbodyType2D.Kinematic;
+        GetComponent<Collider2D>().enabled = false;
         explosion.Play();
     }
 
@@ -50,5 +52,4 @@ public class EnemyController : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
-
 }

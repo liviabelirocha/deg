@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
+        healthText.text = health.ToString();
     }
 
     private void Update()
@@ -55,11 +57,11 @@ public class PlayerController : MonoBehaviour
                 EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
                 enemy.Trigger();
                 Jump(40f);
-                addPoints(200);
+                AddPoints(200);
             }
             else
             {
-                health -= 1;
+                FindObjectOfType<GameController>().LoseHealth();
             }
         }
     }
@@ -70,7 +72,7 @@ public class PlayerController : MonoBehaviour
         {
             collectable.Play();
             Destroy(collision.gameObject);
-            addPoints(100);
+            AddPoints(100);
         }
     }
 
@@ -79,6 +81,8 @@ public class PlayerController : MonoBehaviour
         float hDirection = Input.GetAxis("Horizontal");
         int scale = 1;
 
+        CheckFall();
+
         if (hDirection != 0)
         {
             rigidBody.velocity = new Vector2(hDirection * speed, rigidBody.velocity.y);
@@ -86,9 +90,10 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector2(scale, 1);
         }
 
-        if (Input.GetButtonDown("Jump") && collider.IsTouchingLayers(ground))
+        if (Input.GetButtonDown("Jump"))
         {
-            Jump();
+            RaycastHit2D hit = Physics2D.Raycast(rigidBody.position, Vector2.down, 1.3f, ground);
+            if (hit.collider != null) Jump();
         }
     }
 
@@ -99,10 +104,18 @@ public class PlayerController : MonoBehaviour
         jump.Play();
     }
 
-    private void addPoints(int addedPoints)
+    private void AddPoints(int addedPoints)
     {
         points += addedPoints;
         pointsText.text = points.ToString();
+    }
+
+    private void CheckFall()
+    {
+        if (rigidBody.position.y < -10f)
+        {
+            FindObjectOfType<GameController>().LoseHealth();
+        }
     }
 
     private void ChangeState()
@@ -114,7 +127,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (state == StateMachine.falling)
         {
-            if (collider.IsTouchingLayers(ground)) state = StateMachine.idle;
+            RaycastHit2D hit = Physics2D.Raycast(rigidBody.position, Vector2.down, 1.3f, ground);
+            if (hit.collider != null) state = StateMachine.idle;
         }
         else if (Mathf.Abs(rigidBody.velocity.x) > Mathf.Epsilon) state = StateMachine.running;
         else state = StateMachine.idle;

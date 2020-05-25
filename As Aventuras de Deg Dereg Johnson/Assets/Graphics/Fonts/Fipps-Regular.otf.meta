@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 11778203f495fb14c87465814f4e35cd
+guid: 6a2f30470b3ce564697c7e517febdbf7
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
-  fontSize: 300
+  fontSize: 200
   forceTextureCase: -1
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Happy Times at the IKOB
+  fontName: Fipps
   fontNames:
-  - Happy Times at the IKOB
+  - Fipps
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
