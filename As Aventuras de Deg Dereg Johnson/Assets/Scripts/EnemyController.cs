@@ -11,6 +11,9 @@ public class EnemyController : MonoBehaviour
     //inspector variables
     [SerializeField] private float speed = -5f;
 
+    //sounds
+    [SerializeField] private AudioSource explosion;
+
     //state machine
     private enum StateMachine { walking, dying };
     private StateMachine state = StateMachine.walking;
@@ -40,6 +43,7 @@ public class EnemyController : MonoBehaviour
     {
         state = StateMachine.dying;
         speed = 0;
+        explosion.Play();
     }
 
     private void Death()

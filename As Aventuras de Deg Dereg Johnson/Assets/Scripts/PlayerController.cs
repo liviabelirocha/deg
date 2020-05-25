@@ -20,6 +20,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Text pointsText;
     [SerializeField] private Text healthText;
 
+    //sounds
+    [SerializeField] private AudioSource footstep;
+    [SerializeField] private AudioSource jump;
+    [SerializeField] private AudioSource collectable;
+
     //variables
     private const float jumpForce = 50f;
 
@@ -63,6 +68,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Collectable")
         {
+            collectable.Play();
             Destroy(collision.gameObject);
             addPoints(100);
         }
@@ -80,13 +86,17 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector2(scale, 1);
         }
 
-        if (Input.GetButtonDown("Jump") && collider.IsTouchingLayers(ground)) Jump();
+        if (Input.GetButtonDown("Jump") && collider.IsTouchingLayers(ground))
+        {
+            Jump();
+        }
     }
 
     private void Jump(float force = jumpForce)
     {
         rigidBody.velocity = new Vector2(rigidBody.velocity.x, force);
         state = StateMachine.jumping;
+        jump.Play();
     }
 
     private void addPoints(int addedPoints)
@@ -108,5 +118,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (Mathf.Abs(rigidBody.velocity.x) > Mathf.Epsilon) state = StateMachine.running;
         else state = StateMachine.idle;
+    }
+
+    private void Step()
+    {
+        footstep.Play();
     }
 }
