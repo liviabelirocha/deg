@@ -28,7 +28,7 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        if (target == null || !target.enabled) return;
+        if (target == null) return;
 
         var currentPosition = transform.position;
         var targetPosition = target.transform.position;
@@ -42,7 +42,7 @@ public class CharacterController : MonoBehaviour
     public void TrySetDirection(Direction direction)
     {
         var node = currentNode.GetNodeInDirection(direction);
-        if (node == null) return;
+        if (node == null || !node.enabled) return;
         MoveToNode(node);
     }
 

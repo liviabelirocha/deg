@@ -13,12 +13,12 @@ public class GameController : MonoBehaviour
         if (!lostHealth)
         {
             lostHealth = true;
-            Restart();
+            EndGame();
         }
     }
 
-    private void Restart()
+    private void EndGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("WorldMap");
     }
 }

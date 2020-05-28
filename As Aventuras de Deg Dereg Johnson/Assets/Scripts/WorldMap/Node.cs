@@ -18,7 +18,7 @@ public class Node : MonoBehaviour
     [SerializeField] private Node LeftNode;
     [SerializeField] private Node RightNode;
 
-    private bool enabled = false;
+    public bool enabled = false;
     private Dictionary<Direction, Node> nodeDirections;
 
     private void Start()
@@ -54,19 +54,5 @@ public class Node : MonoBehaviour
     public Node GetNextNode(Node node)
     {
         return nodeDirections.FirstOrDefault(x => x.Value != null && x.Value != node).Value;
-    }
-
-    private void DrawLines()
-    {
-        DrawLine(UpNode);
-        DrawLine(RightNode);
-        DrawLine(DownNode);
-        DrawLine(LeftNode);
-    }
-
-    protected void DrawLine(Node node)
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, node.transform.position);
     }
 }
