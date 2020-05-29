@@ -12,19 +12,19 @@ public class PlayerController : MonoBehaviour
     private Collider2D collider;
 
     //layers
-    [SerializeField] private LayerMask ground;
+    [SerializeField] private LayerMask ground = new LayerMask();
 
     //inspector variables
     [SerializeField] private float speed = 10f;
     [SerializeField] private int points = 0;
     [SerializeField] private int health = 9;
-    [SerializeField] private Text pointsText;
-    [SerializeField] private Text healthText;
+    [SerializeField] private Text pointsText = null;
+    [SerializeField] private Text healthText = null;
 
     //sounds
-    [SerializeField] private AudioSource footstep;
-    [SerializeField] private AudioSource jump;
-    [SerializeField] private AudioSource collectable;
+    [SerializeField] private AudioSource footstep = null;
+    [SerializeField] private AudioSource jump = null;
+    [SerializeField] private AudioSource collectable = null;
 
     //variables
     private const float jumpForce = 50f;

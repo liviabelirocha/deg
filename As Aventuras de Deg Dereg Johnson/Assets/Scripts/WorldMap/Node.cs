@@ -13,10 +13,10 @@ public class Node : MonoBehaviour
     public string SceneToLoad;
 
     [Header("Nodes")]
-    [SerializeField] private Node UpNode;
-    [SerializeField] private Node DownNode;
-    [SerializeField] private Node LeftNode;
-    [SerializeField] private Node RightNode;
+    [SerializeField] private Node UpNode = null;
+    [SerializeField] private Node DownNode = null;
+    [SerializeField] private Node LeftNode = null;
+    [SerializeField] private Node RightNode = null;
 
     public bool enabled = true;
     private Dictionary<Direction, Node> nodeDirections;

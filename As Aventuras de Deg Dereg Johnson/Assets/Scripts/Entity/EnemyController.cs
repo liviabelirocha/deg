@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float speed = -5f;
 
     //sounds
-    [SerializeField] private AudioSource explosion;
+    [SerializeField] private AudioSource explosion = null;
 
     //state machine
     private enum StateMachine { walking, dying };

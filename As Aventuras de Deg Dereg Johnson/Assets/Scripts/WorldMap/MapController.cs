@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class MapController : MonoBehaviour
 {
-    [SerializeField] private CharacterController character;
-    [SerializeField] private Node startNode;
-    [SerializeField] private Text currentLevel;
+    [SerializeField] private CharacterController character = null;
+    [SerializeField] private Node startNode = null;
+    [SerializeField] private Text currentLevel = null;
 
-    [SerializeField] private Node[] levels;
+    [SerializeField] private Node[] levels = new Node[9];
 
     private void Awake()
     {
@@ -44,6 +44,6 @@ public class MapController : MonoBehaviour
 
     public void UpdateGui()
     {
-        currentLevel.text = string.Format("Nível: {0}", character.currentNode.SceneToLoad);
+        currentLevel.text = string.Format("Nível : {0}", character.currentNode.SceneToLoad);
     }
 }

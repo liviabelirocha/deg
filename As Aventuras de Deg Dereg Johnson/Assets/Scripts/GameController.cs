@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
 {
     private bool lostHealth = false;
 
-    [SerializeField] private int levelToUnlock;
+    [SerializeField] private int levelToUnlock = 2;
 
     public void LoseHealth()
     {
