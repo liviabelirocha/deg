@@ -18,7 +18,7 @@ public class Node : MonoBehaviour
     [SerializeField] private Node LeftNode;
     [SerializeField] private Node RightNode;
 
-    public bool enabled = false;
+    public bool enabled = true;
     private Dictionary<Direction, Node> nodeDirections;
 
     private void Start()

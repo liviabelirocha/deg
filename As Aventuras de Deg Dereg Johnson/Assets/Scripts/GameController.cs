@@ -8,17 +8,21 @@ public class GameController : MonoBehaviour
 {
     private bool lostHealth = false;
 
+    [SerializeField] private string nextLevel;
+    [SerializeField] private int levelToUnlock;
+
     public void LoseHealth()
     {
         if (!lostHealth)
         {
             lostHealth = true;
-            EndGame();
+            SceneManager.LoadScene("WorldMap");
         }
     }
 
-    private void EndGame()
+    public void WinLevel()
     {
+        PlayerPrefs.SetInt("levelReached", levelToUnlock);
         SceneManager.LoadScene("WorldMap");
     }
 }

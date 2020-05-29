@@ -10,9 +10,16 @@ public class MapController : MonoBehaviour
     [SerializeField] private Node startNode;
     [SerializeField] private Text currentLevel;
 
+    [SerializeField] private Node[] levels;
+
     private void Awake()
     {
-        startNode.enabled = true;
+        int levelReached = PlayerPrefs.GetInt("levelReached", 1);
+
+        for (int i = 0; i < levels.Length; i++)
+        {
+            if (i + 1 > levelReached) levels[i].enabled = false;
+        }
     }
 
     private void Start()

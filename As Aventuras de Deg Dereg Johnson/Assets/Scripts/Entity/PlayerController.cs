@@ -66,13 +66,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.tag == "Collectable")
+        if (other.gameObject.tag == "Collectable")
         {
             collectable.Play();
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             AddPoints(100);
+        }
+        else if (other.gameObject.tag == "EndLevel")
+        {
+            FindObjectOfType<GameController>().WinLevel();
         }
     }
 
