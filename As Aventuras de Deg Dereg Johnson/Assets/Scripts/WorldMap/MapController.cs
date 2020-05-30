@@ -29,8 +29,7 @@ public class MapController : MonoBehaviour
 
     private void Update()
     {
-        if (character.isMoving) return;
-        CheckForInput();
+        if (!character.isMoving) CheckForInput();
     }
 
     private void CheckForInput()

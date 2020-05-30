@@ -50,9 +50,4 @@ public class Node : MonoBehaviour
             default: throw new ArgumentOutOfRangeException("direction", direction, null);
         }
     }
-
-    public Node GetNextNode(Node node)
-    {
-        return nodeDirections.FirstOrDefault(x => x.Value != null && x.Value != node).Value;
-    }
 }
