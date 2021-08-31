@@ -10,21 +10,24 @@ public class MapController : MonoBehaviour
     [SerializeField] private Node startNode = null;
     [SerializeField] private Text currentLevel = null;
 
-    [SerializeField] private Node[] levels = new Node[9];
+    [SerializeField] private Node[] levels = new Node[2];
+
+    [SerializeField] private Text healthText = null;
+
 
     private void Awake()
     {
         int levelReached = PlayerPrefs.GetInt("levelReached", 1);
 
         for (int i = 0; i < levels.Length; i++)
-        {
             if (i + 1 > levelReached) levels[i].enabled = false;
-        }
+
     }
 
     private void Start()
     {
         character.Initialize(this, startNode);
+        healthText.text = FindObjectOfType<GameController>().GetHealth().ToString();
     }
 
     private void Update()

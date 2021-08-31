@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     //inspector variables
     [SerializeField] private float speed = 10f;
     [SerializeField] private int points = 0;
-    [SerializeField] private int health = 9;
     [SerializeField] private Text pointsText = null;
     [SerializeField] private Text healthText = null;
 
@@ -38,7 +37,7 @@ public class PlayerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
-        healthText.text = health.ToString();
+        healthText.text = FindObjectOfType<GameController>().GetHealth().ToString();
     }
 
     private void Update()
@@ -60,9 +59,7 @@ public class PlayerController : MonoBehaviour
                 AddPoints(200);
             }
             else
-            {
                 FindObjectOfType<GameController>().LoseHealth();
-            }
         }
     }
 
@@ -75,9 +72,8 @@ public class PlayerController : MonoBehaviour
             AddPoints(100);
         }
         else if (other.gameObject.tag == "EndLevel")
-        {
             FindObjectOfType<GameController>().WinLevel();
-        }
+
     }
 
     private void Movement()
@@ -117,9 +113,8 @@ public class PlayerController : MonoBehaviour
     private void CheckFall()
     {
         if (rigidBody.position.y < -10f)
-        {
             FindObjectOfType<GameController>().LoseHealth();
-        }
+
     }
 
     private void ChangeState()

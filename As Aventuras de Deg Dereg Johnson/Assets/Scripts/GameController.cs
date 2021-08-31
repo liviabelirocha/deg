@@ -6,17 +6,42 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    private bool lostHealth = false;
+    public static GameController instance;
+
+    [SerializeField] private int health = 9;
 
     [SerializeField] private int levelToUnlock = 2;
 
+    void Awake()
+    {
+        MakeSingleton();
+    }
+
+    private void MakeSingleton()
+    {
+        if (instance)
+            Destroy(gameObject);
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+
+    public int GetHealth()
+    {
+        return health;
+    }
+
     public void LoseHealth()
     {
-        if (!lostHealth)
-        {
-            lostHealth = true;
+        health--;
+
+        if (health != 0)
             SceneManager.LoadScene("WorldMap");
-        }
+        else SceneManager.LoadScene("MainMenu");
+
     }
 
     public void WinLevel()

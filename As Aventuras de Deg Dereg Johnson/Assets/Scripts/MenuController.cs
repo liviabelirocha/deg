@@ -6,13 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    private RectTransform rectTransform;
     private int index = 0;
-    [SerializeField] private Text[] options = new Text[4];
+    [SerializeField] private Text[] options = new Text[2];
 
     private void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
         Movement();
     }
 
@@ -27,22 +25,20 @@ public class MenuController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             index++;
-            if (index > 3) index = 0;
+            if (index > 1) index = 0;
             Movement(index);
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             index--;
-            if (index < 0) index = 3;
+            if (index < 0) index = 1;
             Movement(index);
-
         }
     }
 
     private void Movement(int i = 0)
     {
-        rectTransform.position = new Vector2(options[i].rectTransform.position.x - options[i].rectTransform.sizeDelta.x / 2 - 100,
-                                                 options[i].rectTransform.position.y + 5);
+        transform.position = new Vector2(options[i].transform.position.x - 2, options[i].transform.position.y);
     }
 
     private void CheckEnter()
@@ -56,11 +52,6 @@ public class MenuController : MonoBehaviour
                     SceneManager.LoadScene("WorldMap");
                     break;
                 case 1:
-                    SceneManager.LoadScene("WorldMap");
-                    break;
-                case 2:
-                    break;
-                case 3:
                     Application.Quit();
                     break;
             }
