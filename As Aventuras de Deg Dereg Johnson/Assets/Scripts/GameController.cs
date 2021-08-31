@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
-    [SerializeField] private int health = 9;
+    [SerializeField] private int health = 2;
 
     [SerializeField] private int levelToUnlock = 2;
 
@@ -40,7 +40,11 @@ public class GameController : MonoBehaviour
 
         if (health != 0)
             SceneManager.LoadScene("WorldMap");
-        else SceneManager.LoadScene("MainMenu");
+        else
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene("MainMenu");
+        }
 
     }
 

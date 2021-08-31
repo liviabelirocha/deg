@@ -14,6 +14,8 @@ public class EnemyController : MonoBehaviour
     //sounds
     [SerializeField] private AudioSource explosion = null;
 
+    private bool hit = false;
+
     //state machine
     private enum StateMachine { walking, dying };
     private StateMachine state = StateMachine.walking;
@@ -46,6 +48,12 @@ public class EnemyController : MonoBehaviour
         rigidBody.bodyType = RigidbodyType2D.Kinematic;
         GetComponent<Collider2D>().enabled = false;
         explosion.Play();
+    }
+
+    public void Hit()
+    {
+        if (hit) Trigger();
+        else hit = true;
     }
 
     private void Death()

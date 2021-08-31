@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Collider2D collider;
 
+    private bool facingRight = true;
+
     //layers
     [SerializeField] private LayerMask ground = new LayerMask();
 
@@ -86,8 +88,7 @@ public class PlayerController : MonoBehaviour
         if (hDirection != 0)
         {
             rigidBody.velocity = new Vector2(hDirection * speed, rigidBody.velocity.y);
-            if (hDirection < 0) scale = -1;
-            transform.localScale = new Vector2(scale, 1);
+            Flip(hDirection < 0 ? false : true);
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -136,5 +137,12 @@ public class PlayerController : MonoBehaviour
     private void Step()
     {
         footstep.Play();
+    }
+
+    private void Flip(bool change)
+    {
+        if (change == facingRight) return;
+        facingRight = change;
+        transform.Rotate(0f, 180f, 0f);
     }
 }
