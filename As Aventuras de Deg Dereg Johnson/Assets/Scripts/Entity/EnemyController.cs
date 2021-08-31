@@ -48,6 +48,7 @@ public class EnemyController : MonoBehaviour
         rigidBody.bodyType = RigidbodyType2D.Kinematic;
         GetComponent<Collider2D>().enabled = false;
         explosion.Play();
+
     }
 
     public void Hit()

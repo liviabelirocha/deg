@@ -18,10 +18,10 @@ public class MapController : MonoBehaviour
     private void Awake()
     {
         int levelReached = PlayerPrefs.GetInt("levelReached", 1);
+        print(levelReached);
 
         for (int i = 0; i < levels.Length; i++)
             if (i + 1 > levelReached) levels[i].enabled = false;
-
     }
 
     private void Start()

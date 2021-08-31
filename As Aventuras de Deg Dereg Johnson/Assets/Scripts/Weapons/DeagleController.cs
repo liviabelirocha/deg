@@ -9,6 +9,9 @@ public class DeagleController : MonoBehaviour
     [SerializeField] private Transform FirePoint = null;
     [SerializeField] private GameObject bulletPrefab = null;
 
+    [SerializeField] private AudioSource shoot = null;
+
+
     void Start()
     {
         transform.position = new Vector3(player.position.x + 1, player.position.y - 0.2f, transform.position.z);
@@ -23,6 +26,7 @@ public class DeagleController : MonoBehaviour
     private void Shoot()
     {
         animator.SetTrigger("Fire");
+        shoot.Play();
         Instantiate(bulletPrefab, FirePoint.position, FirePoint.rotation);
     }
 }

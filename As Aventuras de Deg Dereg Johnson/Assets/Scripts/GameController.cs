@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private int health = 2;
 
     [SerializeField] private int levelToUnlock = 2;
+    [SerializeField] private int levelQuantity = 2;
 
     void Awake()
     {
@@ -34,6 +35,7 @@ public class GameController : MonoBehaviour
         return health;
     }
 
+
     public void LoseHealth()
     {
         health--;
@@ -43,14 +45,20 @@ public class GameController : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            PlayerPrefs.DeleteAll();
             SceneManager.LoadScene("MainMenu");
         }
+    }
 
+    public void AddHealth()
+    {
+        health++;
     }
 
     public void WinLevel()
     {
         PlayerPrefs.SetInt("levelReached", levelToUnlock);
+        if (levelToUnlock != levelQuantity) levelToUnlock++;
         SceneManager.LoadScene("WorldMap");
     }
 }
