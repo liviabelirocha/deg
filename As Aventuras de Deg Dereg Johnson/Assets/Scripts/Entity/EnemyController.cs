@@ -35,7 +35,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
         animator.SetInteger("state", (int)state);
