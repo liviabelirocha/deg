@@ -15978,6 +15978,11 @@ PrefabInstance:
       propertyPath: enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7012379933127983797, guid: cbed2818f63b4244c9ec671a3a01faf9,
+        type: 3}
+      propertyPath: SceneToLoad
+      value: Fase1
+      objectReference: {fileID: 0}
     - target: {fileID: 8461464600051435661, guid: cbed2818f63b4244c9ec671a3a01faf9,
         type: 3}
       propertyPath: m_LocalPosition.x
