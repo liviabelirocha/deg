@@ -29,5 +29,11 @@ public class PeixeiraController : MonoBehaviour
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, EnemyLayer);
         foreach (Collider2D enemy in hitEnemies)
             enemy.GetComponent<EnemyController>().Trigger();
+
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
 }

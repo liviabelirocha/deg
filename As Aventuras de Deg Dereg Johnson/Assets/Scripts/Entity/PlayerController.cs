@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         {
             collectable.Play();
             Destroy(other.gameObject);
-            AddPoints(300);
+            AddPoints(100);
         }
         else if (other.gameObject.tag == "EndLevel")
             game.WinLevel();
