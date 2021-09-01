@@ -7,6 +7,7 @@ TagManager:
   - Collectable
   - Enemy
   - Waypoint
+  - EndLevel
   layers:
   - Default
   - TransparentFX
@@ -49,6 +50,9 @@ TagManager:
     locked: 0
   - name: Entity
     uniqueID: 1289608549
+    locked: 0
+  - name: Enemy
+    uniqueID: 1674517851
     locked: 0
   - name: Foreground
     uniqueID: 1521642719

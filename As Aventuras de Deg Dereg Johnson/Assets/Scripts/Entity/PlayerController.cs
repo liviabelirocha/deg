@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigidBody;
     private Animator animator;
     private Collider2D collider;
+    private GameController game;
 
     private bool facingRight = true;
 
@@ -18,17 +19,17 @@ public class PlayerController : MonoBehaviour
 
     //inspector variables
     [SerializeField] private float speed = 10f;
-    [SerializeField] private int points = 0;
+
     [SerializeField] private Text pointsText = null;
     [SerializeField] private Text healthText = null;
 
     //sounds
-    [SerializeField] private AudioSource footstep = null;
     [SerializeField] private AudioSource jump = null;
     [SerializeField] private AudioSource collectable = null;
 
     //variables
     private const float jumpForce = 50f;
+    private int points = 0;
 
     //state machine
     private enum StateMachine { idle, running, jumping, falling };
@@ -39,7 +40,9 @@ public class PlayerController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider2D>();
-        healthText.text = FindObjectOfType<GameController>().GetHealth().ToString();
+
+        game = FindObjectOfType<GameController>();
+        healthText.text = game.GetHealth().ToString();
     }
 
     private void Update()
@@ -58,10 +61,9 @@ public class PlayerController : MonoBehaviour
                 EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
                 enemy.Trigger();
                 Jump(40f);
-                AddPoints(200);
             }
             else
-                FindObjectOfType<GameController>().LoseHealth();
+                game.LoseHealth();
         }
     }
 
@@ -71,17 +73,16 @@ public class PlayerController : MonoBehaviour
         {
             collectable.Play();
             Destroy(other.gameObject);
-            AddPoints(100);
+            AddPoints(300);
         }
         else if (other.gameObject.tag == "EndLevel")
-            FindObjectOfType<GameController>().WinLevel();
+            game.WinLevel();
 
     }
 
     private void Movement()
     {
         float hDirection = Input.GetAxis("Horizontal");
-        int scale = 1;
 
         CheckFall();
 
@@ -107,15 +108,24 @@ public class PlayerController : MonoBehaviour
 
     private void AddPoints(int addedPoints)
     {
+
         points += addedPoints;
+
+        if (points >= 1000)
+        {
+            game.AddHealth();
+            points = 0;
+        }
+
         pointsText.text = points.ToString();
+        healthText.text = game.GetHealth().ToString();
+
     }
 
     private void CheckFall()
     {
         if (rigidBody.position.y < -10f)
-            FindObjectOfType<GameController>().LoseHealth();
-
+            game.LoseHealth();
     }
 
     private void ChangeState()
@@ -132,11 +142,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (Mathf.Abs(rigidBody.velocity.x) > Mathf.Epsilon) state = StateMachine.running;
         else state = StateMachine.idle;
-    }
-
-    private void Step()
-    {
-        footstep.Play();
     }
 
     private void Flip(bool change)
