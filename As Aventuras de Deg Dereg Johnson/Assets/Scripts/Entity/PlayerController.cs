@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     private const float jumpForce = 50f;
     private int points = 0;
 
+    private float hDirection;
+    private bool isJump;
+
     //state machine
     private enum StateMachine { idle, running, jumping, falling };
     private StateMachine state = StateMachine.idle;
@@ -46,6 +49,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update()
+    {
+        hDirection = Input.GetAxis("Horizontal");
+
+        if (Input.GetButtonDown("Jump"))
+            isJump = true;
+    }
+
+    private void FixedUpdate()
     {
         Movement();
         ChangeState();
@@ -82,8 +93,6 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        float hDirection = Input.GetAxis("Horizontal");
-
         CheckFall();
 
         if (hDirection != 0)
@@ -92,7 +101,7 @@ public class PlayerController : MonoBehaviour
             Flip(hDirection < 0 ? false : true);
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (isJump)
         {
             RaycastHit2D hit = Physics2D.Raycast(rigidBody.position, Vector2.down, 1.3f, ground);
             if (hit.collider != null) Jump();
@@ -104,6 +113,7 @@ public class PlayerController : MonoBehaviour
         rigidBody.velocity = new Vector2(rigidBody.velocity.x, force);
         state = StateMachine.jumping;
         jump.Play();
+        isJump = false;
     }
 
     private void AddPoints(int addedPoints)
